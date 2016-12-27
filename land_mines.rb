@@ -7,8 +7,9 @@ module LandMines
     output = args.last
     target = open(output, 'w')
     target.write("(x,y)\t\t| blowable_mines count\t| explosions\t| number of time intervals\t\n")
-    read_input_and_return_minefield(filename)
-      .mine_layout
+    mines = read_input_and_return_minefield(filename)
+    mines.print_most_dangerous
+    mines.mine_layout
       .each { |m| target.write("(#{m.x},#{m.y}, #{m.blast_radius})\t|\t#{m.blowable_mines.count}\t\t|\t#{m.explosions}\t|\t#{m.time_taken}\n") }
   end
 
