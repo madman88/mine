@@ -1,14 +1,30 @@
 class Mines
-  attr_accessor :mine_layout
+  attr_accessor :mine_layout, :most_dangerous_mine
 
   def initialize(mines)
     @mine_layout = mines
+    @most_dangerous_mine = mines.first
     blowable_mines
     explosions
   end
 
+  def print_most_dangerous
+    p "(#{@most_dangerous_mine.x},#{@most_dangerous_mine.y}, #{@most_dangerous_mine.blast_radius}) is the most destructive mine causing #{@most_dangerous_mine.explosions} explosions in #{@most_dangerous_mine.time_taken} time intervals"
+  end
+
   def explosions
-    mine_layout.each { |mine| mine.explosions, mine.mines_exploded = cal_explosions(mine) }
+    mine_layout.each do |mine|
+      mine.explosions, mine.mines_exploded = cal_explosions(mine)
+      most_dangerous(mine)
+    end
+  end
+
+  def most_dangerous(mine)
+    if (@most_dangerous_mine.explosions < mine.explosions)
+      @most_dangerous_mine = mine
+    elsif (@most_dangerous_mine.explosions == mine.explosions)
+      @most_dangerous_mine = @most_dangerous_mine.time_taken > mine.time_taken ? mine : @most_dangerous_mine
+    end
   end
 
   def blowable_mines
@@ -27,7 +43,7 @@ class Mines
     queue = []
     mines_exploded = []
     queue << mine
-    i = 0
+    i = 1
     visited = {}
     mine_layout.each {|mine| visited[mine.object_id] =  false }
     visited[mine.object_id] = true;

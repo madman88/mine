@@ -1,16 +1,18 @@
 require "minitest/autorun"
 require_relative '../mines'
-
+require_relative '../mine'
 
 describe Mines do
   before do
-    @mines = Mine.new([1,2,5])
+    @mine_field = Mines.new(open("example_mines.txt")
+      .each_line
+      .map { |l| Mine.new(l.split(' '))}
+      )
   end
 
-  describe "when asked if a mine is within its blast radius" do
-    it "must respond with a boolean" do
-      @mine.inside_blast_radius?(Mine.new([2,2,3])).must_equal true
-      @mine.inside_blast_radius?(Mine.new([12,22,3])).must_equal false
+  describe "when asked for the most dangerous mine" do
+    it "must respond with a mine" do
+      @mine_field.most_dangerous_mine.must_be_kind_of Mine
     end
-  end
+  end  
 end
