@@ -1,5 +1,5 @@
 # mine
-=== Exercise ===
+
 
 There is a field of mines. Each mine is identified by a 2d-coordinate and a blast radius. When a mine explodes at time interval t, it explodes mines that lay within its blast radius at t + 1.
 
@@ -8,6 +8,7 @@ Given a list of mines consisting of their X & Y coordinates and radius (ex 2, 2,
 A sample mines files is attached.
 
 Running tests Install minitest gem and run `ruby -Ilib:test tests/*`
+
 Running program -> `ruby land_mines.rb <input file name> <output file name>`
 
-=== End Exercise ===
+
