@@ -15,13 +15,13 @@ describe Mine do
   end
 
   describe "when asked for the list of mines exploded " do
-    it "it returns a collection of mine objects" do
+    it "returns a collection of mine objects" do
       @mine.mines_exploded.must_be_kind_of Array
     end
   end
 
   describe "when asked for the time intervals taken for blowing everything it can " do
-    it "it returns a time interval integer value" do
+    it "returns a time interval integer value" do
       @mine.time_taken.must_be_kind_of Integer
     end
   end
