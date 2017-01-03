@@ -20,11 +20,7 @@ class Mine
   end
 
   def inside_blast_radius?(mine)
-    if (distance(mine) <= blast_radius)
-      return true
-    else
-      return false
-    end
+    distance(mine) <= blast_radius
   end
 
   def distance(mine)
