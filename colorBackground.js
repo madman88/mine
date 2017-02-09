@@ -1,17 +1,25 @@
-var usedColors = {};
 
-function isUsed(randomColor) {
-  return usedColors[randomColor] === true;
-}
+var colorBackground = {
+  usedColors: {},
 
-function colorBackground() {
-  var randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+  isUsed: function(randomColor) {
+    return this.usedColors[randomColor] === true;
+  },
 
-  if (!isUsed(randomColor)){
-    usedColors[randomColor] = true;
-    document.getElementById("viewport").style["background-color"] = randomColor;
+  getRandomColor: function(){
+    var randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+    if (this.isUsed(randomColor)){
+      this.getRandomColor();
+    }
+    this.usedColors[randomColor] = true;
+    return randomColor;
+  },
+
+  colorBackground: function() {
+    document.getElementById("body").style["background-color"] = this.getRandomColor();
   }
-}
+};
 
-var myVar = setInterval(function(){ colorBackground() }, 1000);
-setTimeout(function(){clearInterval(myVar);},10000);
+
+var colorBackground_id = setInterval(function(){ colorBackground.colorBackground() }, 1000);
+setTimeout(function(){clearInterval(colorBackground_id);},10000);
